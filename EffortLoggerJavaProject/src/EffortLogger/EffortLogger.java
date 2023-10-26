@@ -9,7 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
  
-public class LoginScreen extends Application {
+public class EffortLogger extends Application {
     public static void main(String[] args) {
         launch(args);
     }
@@ -17,23 +17,28 @@ public class LoginScreen extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("EffortLogger Login Interface");
         
+        BorderPane root = new BorderPane();
+        
         //Login button instantiation and event handling
         Button btn = new Button();
         btn.setText("Login");
         btn.setOnAction(new EventHandler<>() {
             public void handle(ActionEvent event) {
-                System.out.println("Credential provided");
+                root.setCenter(new EffortConsole());
             }
         });
         
         TextField loginPrompt = new TextField("Enter your username");
-        VBox root = new VBox();
+        
         
         //Add the elements to the VBox
-        root.getChildren().add(loginPrompt);
-        root.getChildren().add(btn);
-        root.setAlignment(Pos.CENTER);
-        root.setSpacing(20);
+        VBox login_screen = new VBox();
+        login_screen.getChildren().add(loginPrompt);
+        login_screen.getChildren().add(btn);
+        login_screen.setAlignment(Pos.CENTER);
+        login_screen.setSpacing(20);
+        
+        root.setCenter(login_screen);
         
         //Display the login screen
         primaryStage.setScene(new Scene(root, 300, 250));
