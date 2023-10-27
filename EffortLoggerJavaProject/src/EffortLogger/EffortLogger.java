@@ -10,6 +10,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
  
 public class EffortLogger extends Application {
+    protected String username;
     public static void main(String[] args) {
         launch(args);
     }
@@ -18,18 +19,17 @@ public class EffortLogger extends Application {
         primaryStage.setTitle("EffortLogger Login Interface");
         
         BorderPane root = new BorderPane();
-        
+        TextField loginPrompt = new TextField("Enter your username");
+     
         //Login button instantiation and event handling
         Button btn = new Button();
         btn.setText("Login");
         btn.setOnAction(new EventHandler<>() {
             public void handle(ActionEvent event) {
+                username = loginPrompt.getText();
                 root.setCenter(new EffortConsole());
             }
-        });
-        
-        TextField loginPrompt = new TextField("Enter your username");
-        
+        });     
         
         //Add the elements to the VBox
         VBox login_screen = new VBox();
