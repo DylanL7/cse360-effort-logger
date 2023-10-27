@@ -41,7 +41,7 @@ public class EffortLogger extends Application {
         root.setCenter(login_screen);
         
         //Display the login screen
-        primaryStage.setScene(new Scene(root, 300, 250));
+        primaryStage.setScene(new Scene(root, 700, 550));
         primaryStage.show();
     }
 }
