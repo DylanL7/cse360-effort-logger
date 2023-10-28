@@ -12,14 +12,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
- 
+
+//Code written by Justin Koehle and Mitch Zakocs
 public class EffortLogger extends Application {
     protected String username;
+
+    //Main launches the JavaFX application
     public static void main(String[] args) {
         launch(args);
     }
-    
+
+    //JavaFX logic contained within start
     public void start(Stage primaryStage) throws IOException {
+
+     //Creates the mainline console scene launched on login
     	Parent console = FXMLLoader.load(getClass().getResource("Effort Log Console.fxml"));
     	Scene consoleScene = new Scene(console);
     	
