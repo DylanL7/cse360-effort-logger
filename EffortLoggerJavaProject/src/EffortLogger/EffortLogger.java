@@ -39,12 +39,16 @@ public class EffortLogger extends Application {
         btn.setText("Login");
         btn.setOnAction(new EventHandler<>() {
             public void handle(ActionEvent event) {
+            	loginChecker nameCheck = new loginChecker();
                 username = loginPrompt.getText();
-                //root.setCenter(new EffortConsole());
-                primaryStage.setScene(consoleScene);
-                primaryStage.show();
+                    //Verify the provided credentials are approved
+                	if (nameCheck.verify(username))
+                	{
+                		primaryStage.setScene(consoleScene);
+                        primaryStage.show();
+                	}
             }
-        });     
+        });  
         
         //Add the elements to the VBox
         VBox login_screen = new VBox();
