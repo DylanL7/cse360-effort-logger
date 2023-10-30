@@ -1,6 +1,7 @@
 package EffortLogger;
 
 import javafx.geometry.Insets;
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import EffortLogger.DateTimePicker;
@@ -46,9 +47,9 @@ public class EffortConsoleEntry {
 }
 
 
-public class EffortConsole extends Pane {
+public class EffortLogEditor extends Pane {
 
-	  public EffortConsole() {
+	  public EffortLogEditor() {
 		  
 		this.setMinSize(600, 550);
 	
