@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import it.sauronsoftware.junique.AlreadyLockedException;
+import it.sauronsoftware.junique.JUnique;
 
 //Code written by Justin Koehle and Mitch Zakocs
 public class EffortLogger extends Application {
@@ -19,7 +21,22 @@ public class EffortLogger extends Application {
 
     //Main launches the JavaFX application
     public static void main(String[] args) {
-        launch(args);
+       String appId = "EffortLogger";
+        boolean alreadyRunning;
+        try {
+            JUnique.acquireLock(appId);
+            alreadyRunning = false;
+        } catch (AlreadyLockedException e) {
+            alreadyRunning = true;
+        }
+        if (!alreadyRunning) { //No instance currently running
+            launch(args); // JavaFX start sequence 
+        }else{ //Already running project
+            System.out.print(appId + " is already running.");
+        	System.exit(1);
+        }
+        //left in for testing purposes
+        //launch(args);
     }
 
     //JavaFX logic contained within start
