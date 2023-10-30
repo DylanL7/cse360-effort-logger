@@ -9,8 +9,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// Class with static entries, this is not meant to be used as an object, rather just a group of functions
 public class CSVInterface {
 	
+	// make a class to hold inputs and outputs from the CSV, makes it easier to read
 	static class LogEntry {
 		public String task_name;
 		public LocalDateTime start_time;
@@ -35,16 +37,32 @@ public class CSVInterface {
 	            return "";
 	        }
 	    }
+		
+		// validate each string property of this class for the CSV file - make sure nothing has commas in it
+		public boolean validatePropertiesForCSV() {
+	        if (task_name.indexOf(',') != -1 || user_name.indexOf(',') != -1) {
+	        	return false;
+	        }
+	        
+	        return true; // everything was OK
+	    }
 	}
 	
 	
-	
+	// verify and write input data to the CSV file
 	@SuppressWarnings("finally")
 	static void WriteLoggerData(LogEntry entry) {
+		
+		// validate inputs here
+		if (!entry.validatePropertiesForCSV()) {
+			System.out.println("Invalid inputs for CSV!");
+			return;
+		}
 		
 		String new_entry = entry.task_name + "," + entry.start_time + "," + entry.end_time  + "," + entry.user_name + "\n";
 		
 		try {
+			// write to the local file
 			FileWriter fw = new FileWriter("localCSV.csv", true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(new_entry);
@@ -84,25 +102,28 @@ public class CSVInterface {
 		return return_array;
 	}
 	
-	
+	// keep track of start and end times
 	public static LogEntry startTask(String taskName, String userName) {
         LocalDateTime startTime = LocalDateTime.now();
         return new LogEntry(taskName, startTime, null, userName);
     }
-
     public static void endTask(LogEntry entry) {
         entry.end_time = LocalDateTime.now();
     }
 
+    // public class to test this interface with
     public static void main(String[] args) {
         LogEntry le = startTask("TaskA", "User1");
+        LogEntry le2 = startTask("TaskB", "User,2");
         try {
             Thread.sleep(2000); // Wait for 2 seconds to simulate task duration
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         endTask(le);
+        endTask(le2);
         WriteLoggerData(le);
+        WriteLoggerData(le2);
 
         ArrayList<LogEntry> read_entries = ReadLoggedData();
         for (LogEntry entry : read_entries) {
@@ -131,6 +152,3 @@ public class CSVInterface {
 		System.out.println("Done");
     }*/
 
-
-
-    

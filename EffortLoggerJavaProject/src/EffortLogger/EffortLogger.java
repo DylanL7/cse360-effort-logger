@@ -18,6 +18,9 @@ import javafx.event.ActionEvent;
 import java.util.regex.Pattern;
 import javafx.fxml.FXML;
 
+import it.sauronsoftware.junique.AlreadyLockedException;
+import it.sauronsoftware.junique.JUnique;
+
 public class EffortLoggerFXMLController {
     
     @FXML protected void handleEffortLoggerEditorButton(ActionEvent event) {
@@ -29,13 +32,29 @@ public class EffortLoggerFXMLController {
 
 }
 
+
 //Code written by Justin Koehle and Mitch Zakocs
 public class EffortLogger extends Application {
     protected String username;
 
     //Main launches the JavaFX application
     public static void main(String[] args) {
-        launch(args);
+       String appId = "EffortLogger";
+        boolean alreadyRunning;
+        try {
+            JUnique.acquireLock(appId);
+            alreadyRunning = false;
+        } catch (AlreadyLockedException e) {
+            alreadyRunning = true;
+        }
+        if (!alreadyRunning) { //No instance currently running
+            launch(args); // JavaFX start sequence 
+        }else{ //Already running project
+            System.out.print(appId + " is already running.");
+        	System.exit(1);
+        }
+        //left in for testing purposes
+        //launch(args);
     }
 
     //JavaFX logic contained within start
@@ -82,11 +101,16 @@ public class EffortLogger extends Application {
         btn.setText("Login");
         btn.setOnAction(new EventHandler<>() {
             public void handle(ActionEvent event) {
+            	loginChecker nameCheck = new loginChecker();
                 username = loginPrompt.getText();
-                primaryStage.setScene(consoleScene);
-                primaryStage.show();
+                    //Verify the provided credentials are approved
+                	if (nameCheck.verify(username))
+                	{
+                		primaryStage.setScene(consoleScene);
+                        primaryStage.show();
+                	}
             }
-        });     
+        });  
         
         //Add the elements to the VBox
         VBox login_screen = new VBox();
