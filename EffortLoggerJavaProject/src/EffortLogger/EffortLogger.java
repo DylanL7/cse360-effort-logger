@@ -15,27 +15,35 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.event.ActionEvent;
+
+import java.util.ArrayList;
 import java.util.regex.Pattern;
+
+import EffortLogger.CSVInterface.LogEntry;
 import javafx.fxml.FXML;
 
 import it.sauronsoftware.junique.AlreadyLockedException;
 import it.sauronsoftware.junique.JUnique;
 
-public class EffortLoggerFXMLController {
-    
-    @FXML protected void handleEffortLoggerEditorButton(ActionEvent event) {
-    	Node source = (Node) .getSource();
-        Window stage = source.getScene().getWindow();
-        
-        source.getScene().getRoot().
-    }
-
-}
-
-
 //Code written by Justin Koehle and Mitch Zakocs
 public class EffortLogger extends Application {
     protected String username;
+    
+    public class EffortLoggerController {
+    	
+    	Stage mainStage;
+        
+        @FXML protected void handlePlanningPokerButton(ActionEvent event) throws Exception {
+        	PlanningPoker pp = new PlanningPoker();
+        	mainStage.setScene(new Scene(pp));
+        	mainStage.show();
+        }
+        
+        protected void setupStage(Stage stage) {
+        	mainStage = stage;
+        }
+
+    }
 
     //Main launches the JavaFX application
     public static void main(String[] args) {
@@ -61,7 +69,10 @@ public class EffortLogger extends Application {
     public void start(Stage primaryStage) throws IOException {
 
      //Creates the mainline console scene launched on login
-    	Parent console = FXMLLoader.load(getClass().getResource("Effort Log Console.fxml"));
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Effort Log Console.fxml"));
+    	Parent console = loader.load();
+    	EffortLoggerController controller = loader.getController();
+    	controller.setupStage(primaryStage);
     	Scene consoleScene = new Scene(console);
     	
         primaryStage.setTitle("EffortLogger Login Interface");
