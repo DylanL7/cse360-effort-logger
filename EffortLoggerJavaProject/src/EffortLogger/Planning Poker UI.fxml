@@ -35,7 +35,7 @@
             <Insets />
          </GridPane.margin>
       </TextArea>
-      <TextArea prefHeight="200.0" prefWidth="200.0" text="Description:&#10;Hello(temporary)&#10;&#10;" GridPane.rowIndex="1">
+      <TextArea prefHeight="200.0" prefWidth="200.0" text="Description:&#10;Testing Description&#10;&#10;" GridPane.rowIndex="1">
          <font>
             <Font size="18.0" />
          </font>
