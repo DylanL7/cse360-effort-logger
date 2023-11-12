@@ -40,7 +40,7 @@ public class CSVInterface {
 			return;
 		}
 		
-		String new_entry = task_name + "," + user_name + "," + description + ","; // start new line, don't end it
+		String new_entry = task_name + "," + user_name + "," + description; // start new line, don't end it
 		
 		try {
 			// write to the local file
@@ -57,7 +57,7 @@ public class CSVInterface {
 	@SuppressWarnings("finally")
 	static void WriteEstimatedPoints(Integer estimated_points) {
 		
-		String new_entry = estimated_points + ","; // start new line, don't end it - still need actual points
+		String new_entry = "," + estimated_points; // start new line, don't end it - still need actual points
 		
 		try {
 			// write to the local file
@@ -74,7 +74,7 @@ public class CSVInterface {
 	@SuppressWarnings("finally")
 	static void WriteActualPoints(Integer actual_points) {
 		
-		String new_entry = actual_points + "\n"; // end the line here - last entry
+		String new_entry = "," + actual_points + "\n"; // end the line here - last entry
 		
 		try {
 			// write to the local file
@@ -101,6 +101,22 @@ public class CSVInterface {
 				//System.out.println(data);
 				String[] raw_dat = data.split(",", -1);
 				
+				if (raw_dat.length != 5) {
+					String[] new_raw_dat = new String[5];
+					for (int i = 0; i < 5; i++) {
+						if (i >= raw_dat.length) {
+							if (i == 3 || i == 4) {
+								new_raw_dat[i] = "0";
+							} else {
+								new_raw_dat[i] = "";
+							}
+						} else {
+							new_raw_dat[i] = raw_dat[i];
+						}
+					}
+					raw_dat = new_raw_dat;
+				}
+				
 				// this is the same order it came in
                 LogEntry read_entry = new LogEntry(raw_dat[0], raw_dat[1], raw_dat[2], Integer.parseInt(raw_dat[3]), Integer.parseInt(raw_dat[4]));
 				return_array.add(read_entry);
@@ -123,8 +139,8 @@ public class CSVInterface {
     	WriteActualPoints(3);
     	
     	WriteInitialTaskName("task2", "user2", "description2");
-    	WriteEstimatedPoints(3);
-    	WriteActualPoints(6);
+    	//WriteEstimatedPoints(3);
+    	//WriteActualPoints(6);
     	
     	ArrayList<LogEntry> read_entries = ReadLoggedData();
         for (LogEntry entry : read_entries) {
