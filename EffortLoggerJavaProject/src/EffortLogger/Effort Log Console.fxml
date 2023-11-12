@@ -36,6 +36,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -83,7 +84,12 @@
                         <ComboBox prefWidth="150.0" />
                      </children>
                   </VBox>
-                  <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Description:" />
+                        <TextField />
+                     </children>
+                  </VBox>
                </children>
             </GridPane>
             <Label text="3. Press the &quot;Stop this Activity&quot; to generate an effort log entry using the attributes above." />
@@ -94,7 +100,7 @@
                   <Button mnemonicParsing="false" text="Effort Log Editor" />
                   <Button mnemonicParsing="false" text="Defect Log Console" />
                   <Button mnemonicParsing="false" text="Definitions" />
-                  <Button mnemonicParsing="false" onAction="#handlePlanningPokerButton" text="Planning Poker" />
+                  <Button mnemonicParsing="false" text="Planning Poker" />
                </children>
             </HBox>
          </children>
