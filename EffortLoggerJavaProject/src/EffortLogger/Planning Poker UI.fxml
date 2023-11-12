@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
 <fx:root alignment="CENTER" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="684.0" prefWidth="1001.0" type="GridPane" vgap="5.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
@@ -28,6 +35,32 @@
             <Insets />
          </GridPane.margin>
       </TextArea>
+      <TextArea prefHeight="200.0" prefWidth="200.0" text="Description:&#10;Hello(temporary)&#10;&#10;" GridPane.rowIndex="1">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextArea>
+      <HBox alignment="CENTER_LEFT" prefHeight="201.0" prefWidth="492.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <TilePane alignment="CENTER" prefHeight="176.0" prefWidth="311.0">
+               <children>
+                  <Label text="Effort Estimate" />
+                  <RadioButton mnemonicParsing="false" text="1">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="choices" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="2" toggleGroup="$choices" />
+                  <RadioButton layoutX="66.0" layoutY="10.0" mnemonicParsing="false" text="3" toggleGroup="$choices" />
+                  <RadioButton layoutX="79.0" layoutY="10.0" mnemonicParsing="false" text="4" toggleGroup="$choices" />
+                  <RadioButton layoutX="52.0" layoutY="27.0" mnemonicParsing="false" text="5" toggleGroup="$choices" />
+                  <RadioButton layoutX="38.0" layoutY="27.0" mnemonicParsing="false" text="6" toggleGroup="$choices" />
+                  <Separator opacity="0.0" prefHeight="28.0" prefWidth="200.0" />
+               </children>
+            </TilePane>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleEstimationButton" prefHeight="60.0" prefWidth="80.0" text="Submit Estimation" textAlignment="CENTER" wrapText="true" />
+         </children>
+      </HBox>
       <TableView fx:id="historyTable" prefHeight="182.0" prefWidth="519.0" GridPane.columnIndex="1">
         <columns>
           <TableColumn fx:id="taskNameColumn" prefWidth="177.0" text="Task Name" />
@@ -36,11 +69,6 @@
             <TableColumn fx:id="actualStoryPointsColumn" prefWidth="87.0" text="Actual SP" />
         </columns>
       </TableView>
-      <TextArea prefHeight="200.0" prefWidth="200.0" text="Description:&#10;Hello(temporary)&#10;&#10;" GridPane.rowIndex="1">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextArea>
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
