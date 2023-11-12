@@ -16,11 +16,13 @@ public class CSVInterface {
 		public Integer actual_story_points_hours;
 		public Integer estimated_story_points;
 		public String user_name;
+		public String description;
 		
 		// Create a class constructor for the Main class
-		public LogEntry(String task_name, String user_name, Integer estimated_story_points, Integer actual_story_points_hours) {
+		public LogEntry(String task_name, String user_name, String description, Integer estimated_story_points, Integer actual_story_points_hours) {
 			this.task_name = task_name;
 			this.actual_story_points_hours = actual_story_points_hours;
+			this.description = description;
 			this.estimated_story_points = estimated_story_points;
 			this.user_name = user_name;
 		}
@@ -30,7 +32,7 @@ public class CSVInterface {
 	
 	/// Call from the console WHEN PLANNING POKER is clicked
 	@SuppressWarnings("finally")
-	static void WriteInitialTaskName(String task_name, String user_name) {
+	static void WriteInitialTaskName(String task_name, String user_name, String description) {
 		
 		// validate input for the CSV (make sure there are no commas)
 		if (task_name.indexOf(',') != -1 || user_name.indexOf(',') != -1) {
@@ -38,7 +40,7 @@ public class CSVInterface {
 			return;
 		}
 		
-		String new_entry = task_name + "," + user_name + ","; // start new line, don't end it
+		String new_entry = task_name + "," + user_name + "," + description + ","; // start new line, don't end it
 		
 		try {
 			// write to the local file
@@ -100,7 +102,7 @@ public class CSVInterface {
 				String[] raw_dat = data.split(",", -1);
 				
 				// this is the same order it came in
-                LogEntry read_entry = new LogEntry(raw_dat[0], raw_dat[1], Integer.parseInt(raw_dat[2]), Integer.parseInt(raw_dat[3]));
+                LogEntry read_entry = new LogEntry(raw_dat[0], raw_dat[1], raw_dat[2], Integer.parseInt(raw_dat[3]), Integer.parseInt(raw_dat[4]));
 				return_array.add(read_entry);
 			}
 			myReader.close();
@@ -116,18 +118,18 @@ public class CSVInterface {
     // public class to test this interface with
     public static void main(String[] args) {
     	
-    	WriteInitialTaskName("task1", "user1");
+    	WriteInitialTaskName("task1", "user1", "description");
     	WriteEstimatedPoints(5);
     	WriteActualPoints(3);
     	
-    	WriteInitialTaskName("task2", "user2");
+    	WriteInitialTaskName("task2", "user2", "description2");
     	WriteEstimatedPoints(3);
     	WriteActualPoints(6);
     	
     	ArrayList<LogEntry> read_entries = ReadLoggedData();
         for (LogEntry entry : read_entries) {
             System.out.println("Data read: " + entry.task_name + " " + entry.estimated_story_points + " " + 
-                               entry.actual_story_points_hours + " " + entry.user_name);
+                               entry.actual_story_points_hours + " " + entry.user_name + " " + entry.description);
         }
         System.out.println("Done");
     }
