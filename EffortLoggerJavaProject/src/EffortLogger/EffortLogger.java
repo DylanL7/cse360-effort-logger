@@ -15,53 +15,57 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.event.ActionEvent;
+
+import java.util.ArrayList;
 import java.util.regex.Pattern;
+
+import EffortLogger.CSVInterface.LogEntry;
 import javafx.fxml.FXML;
 
-import it.sauronsoftware.junique.AlreadyLockedException;
-import it.sauronsoftware.junique.JUnique;
-
-public class EffortLoggerFXMLController {
-    
-    @FXML protected void handleEffortLoggerEditorButton(ActionEvent event) {
-    	Node source = (Node) .getSource();
-        Window stage = source.getScene().getWindow();
-        
-        source.getScene().getRoot().
-    }
-
-}
-
+//import it.sauronsoftware.junique.AlreadyLockedException;
+//import it.sauronsoftware.junique.JUnique;
 
 //Code written by Justin Koehle and Mitch Zakocs
 public class EffortLogger extends Application {
+	
     protected String username;
-
+    
+    private Stage mainStage;
+    
+    @FXML public void handlePlanningPokerButton(ActionEvent event) throws Exception {
+    	PlanningPoker pp = new PlanningPoker();
+    	mainStage.setScene(new Scene(pp));
+    	mainStage.show();
+    }
+    
     //Main launches the JavaFX application
     public static void main(String[] args) {
-       String appId = "EffortLogger";
-        boolean alreadyRunning;
-        try {
-            JUnique.acquireLock(appId);
-            alreadyRunning = false;
-        } catch (AlreadyLockedException e) {
-            alreadyRunning = true;
-        }
-        if (!alreadyRunning) { //No instance currently running
-            launch(args); // JavaFX start sequence 
-        }else{ //Already running project
-            System.out.print(appId + " is already running.");
-        	System.exit(1);
-        }
+//       String appId = "EffortLogger";
+//        boolean alreadyRunning;
+//        try {
+//            JUnique.acquireLock(appId);
+//            alreadyRunning = false;
+//        } catch (AlreadyLockedException e) {
+//            alreadyRunning = true;
+//        }
+//        if (!alreadyRunning) { //No instance currently running
+//            launch(args); // JavaFX start sequence 
+//        }else{ //Already running project
+//            System.out.print(appId + " is already running.");
+//        	System.exit(1);
+//        }
         //left in for testing purposes
-        //launch(args);
+        launch(args);
     }
 
     //JavaFX logic contained within start
     public void start(Stage primaryStage) throws IOException {
 
      //Creates the mainline console scene launched on login
-    	Parent console = FXMLLoader.load(getClass().getResource("Effort Log Console.fxml"));
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("Effort Log Console.fxml"));
+    	loader.setController(this);
+    	this.mainStage = primaryStage;
+    	Parent console = loader.load();
     	Scene consoleScene = new Scene(console);
     	
         primaryStage.setTitle("EffortLogger Login Interface");

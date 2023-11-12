@@ -94,7 +94,7 @@
                   <Button mnemonicParsing="false" text="Effort Log Editor" />
                   <Button mnemonicParsing="false" text="Defect Log Console" />
                   <Button mnemonicParsing="false" text="Definitions" />
-                  <Button mnemonicParsing="false" text="Planning Poker" />
+                  <Button mnemonicParsing="false" onAction="#handlePlanningPokerButton" text="Planning Poker" />
                </children>
             </HBox>
          </children>

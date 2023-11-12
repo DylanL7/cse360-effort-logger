@@ -13,12 +13,12 @@ public class CSVInterface {
 	// make a class to hold inputs and outputs from the CSV, makes it easier to read
 	static class LogEntry {
 		public String task_name;
-		public int actual_story_points_hours;
-		public int estimated_story_points;
+		public Integer actual_story_points_hours;
+		public Integer estimated_story_points;
 		public String user_name;
 		
 		// Create a class constructor for the Main class
-		public LogEntry(String task_name, String user_name, int estimated_story_points, int actual_story_points_hours) {
+		public LogEntry(String task_name, String user_name, Integer estimated_story_points, Integer actual_story_points_hours) {
 			this.task_name = task_name;
 			this.actual_story_points_hours = actual_story_points_hours;
 			this.estimated_story_points = estimated_story_points;
@@ -53,7 +53,7 @@ public class CSVInterface {
 	
 	/// To be called from the planning poker screen - estimated_points will be the input in that screen
 	@SuppressWarnings("finally")
-	static void WriteEstimatedPoints(int estimated_points) {
+	static void WriteEstimatedPoints(Integer estimated_points) {
 		
 		String new_entry = estimated_points + ","; // start new line, don't end it - still need actual points
 		
@@ -70,7 +70,7 @@ public class CSVInterface {
 	
 	/// To be called from the console AFTER planning poker
 	@SuppressWarnings("finally")
-	static void WriteActualPoints(int actual_points) {
+	static void WriteActualPoints(Integer actual_points) {
 		
 		String new_entry = actual_points + "\n"; // end the line here - last entry
 		
