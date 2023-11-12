@@ -36,6 +36,11 @@
             <TableColumn fx:id="actualStoryPointsColumn" prefWidth="87.0" text="Actual SP" />
         </columns>
       </TableView>
+      <TextArea prefHeight="200.0" prefWidth="200.0" text="Description:&#10;Hello(temporary)&#10;&#10;" GridPane.rowIndex="1">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextArea>
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
