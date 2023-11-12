@@ -15,9 +15,11 @@ import java.util.ArrayList;
 import EffortLogger.DateTimePicker;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -43,6 +45,17 @@ public class PlanningPoker extends GridPane {
 	@FXML
 	private TableColumn<LogEntry, Integer> actualStoryPointsColumn; 
 	
+	@FXML
+	 ToggleGroup choices;
+	
+	@FXML public void handleEstimationButton(ActionEvent event) throws Exception {
+		RadioButton rb = (RadioButton)choices.getSelectedToggle(); 
+		  
+        if (rb != null) { 
+            int s = Integer.parseInt(rb.getText()); //get selected value 1-6
+            System.out.println(s);
+        }
+    }
 	public PlanningPoker() throws Exception {
 	
 		// Setup FXML
