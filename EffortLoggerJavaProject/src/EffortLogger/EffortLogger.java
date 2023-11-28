@@ -29,13 +29,24 @@ import javafx.fxml.FXML;
 public class EffortLogger extends Application {
 	
     protected String username;
+    private String taskName;
     
     private Stage mainStage;
+    private TabPane root;
+
+    @FXML
+    private TextField taskNameTextField;
+
+    @FXML
+    private TextField descriptionTextField;
     
     @FXML public void handlePlanningPokerButton(ActionEvent event) throws Exception {
-    	PlanningPoker pp = new PlanningPoker();
-    	mainStage.setScene(new Scene(pp));
-    	mainStage.show();
+    	PlanningPoker pp = new PlanningPoker(mainStage, taskNameTextField.getText(), descriptionTextField.getText());
+//    	mainStage.setScene(new Scene(pp));
+//    	mainStage.show();
+    	Tab tab = new Tab();
+        tab.setContent(pp);
+        root.getSelectionModel().select(-1);
     }
     
     //Main launches the JavaFX application
@@ -70,7 +81,6 @@ public class EffortLogger extends Application {
     	
         primaryStage.setTitle("EffortLogger Login Interface");
         
-        BorderPane root = new BorderPane();
         TextField loginPrompt = new TextField("Username");
         
         // SQL Injection Prevention
@@ -110,8 +120,9 @@ public class EffortLogger extends Application {
                     //Verify the provided credentials are approved
                 	if (nameCheck.verify(username))
                 	{
-                		primaryStage.setScene(consoleScene);
-                        primaryStage.show();
+                        root.getSelectionModel().select(1);
+//                		primaryStage.setScene(consoleScene);
+//                        primaryStage.show();
                 	}
             }
         });  
@@ -123,8 +134,16 @@ public class EffortLogger extends Application {
         login_screen.setAlignment(Pos.CENTER);
         login_screen.setSpacing(20);
         
-        root.setCenter(login_screen);
-        
+        root = new TabPane();
+        root.getStylesheets().add("tabbar.css");
+        // Create login tab
+        Tab tab0 = new Tab();
+        tab0.setContent(login_screen);
+        // Create console tab
+		Tab tab1 = new Tab();
+		tab1.setContent(console);
+		root.getTabs().addAll(tab0, tab1);
+		
         //Display the login screen
         primaryStage.setScene(new Scene(root, 700, 550));
         primaryStage.show();

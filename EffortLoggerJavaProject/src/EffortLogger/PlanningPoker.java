@@ -1,6 +1,7 @@
 package EffortLogger;
 
 import EffortLogger.CSVInterface.LogEntry;
+import EffortLogger.EffortLogger;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
@@ -31,6 +33,8 @@ import javafx.scene.layout.Pane;
 
 
 public class PlanningPoker extends GridPane {
+	
+	private Stage mainStage;
 	@FXML
 	public TableView historyTable;
 	
@@ -47,6 +51,9 @@ public class PlanningPoker extends GridPane {
 	private TableColumn<LogEntry, Integer> actualStoryPointsColumn; 
 	
 	@FXML
+	private TextArea descriptionTextArea;
+	
+	@FXML
 	 ToggleGroup choices;
 	
 	@FXML public void handleEstimationButton(ActionEvent event) throws Exception {
@@ -56,9 +63,11 @@ public class PlanningPoker extends GridPane {
             int s = Integer.parseInt(rb.getText()); //get selected value 1-6
             System.out.println(s);
         }
+        
+        
     }
-	public PlanningPoker() throws Exception {
-	
+	public PlanningPoker(Stage stage, String taskName, String description) throws Exception {
+		this.mainStage = stage;
 		// Setup FXML
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Planning Poker UI.fxml"));
 		loader.setController(this);
@@ -73,6 +82,17 @@ public class PlanningPoker extends GridPane {
 		ArrayList<LogEntry> entries = CSVInterface.ReadLoggedData();
 		for (LogEntry entry : entries) {
 			historyTable.getItems().add(entry);
+		}
+		
+		// Setup name and desc
+		if (!taskName.isEmpty() && !description.isEmpty()) {
+			String desc = "";
+			desc += "Task Name: ";
+			desc += taskName;
+			desc += "\n";
+			desc += "Description: ";
+			desc += description;
+			descriptionTextArea.setText(desc);
 		}
 	}
 }

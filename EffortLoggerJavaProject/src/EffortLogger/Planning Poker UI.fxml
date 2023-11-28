@@ -34,7 +34,7 @@
             <Insets />
          </GridPane.margin>
       </TextArea>
-      <TextArea prefHeight="200.0" prefWidth="200.0" text="Description:&#10;Default Description&#10;&#10;" GridPane.rowIndex="1">
+      <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" text="Description:&#10;Default Description&#10;&#10;" GridPane.rowIndex="1">
          <font>
             <Font size="18.0" />
          </font>
@@ -57,7 +57,7 @@
                   <Separator opacity="0.0" prefHeight="28.0" prefWidth="200.0" />
                </children>
             </TilePane>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleEstimationButton" prefHeight="60.0" prefWidth="80.0" text="Submit Estimation" textAlignment="CENTER" wrapText="true" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleEstimationButton" prefHeight="60.0" prefWidth="117.0" text="Submit Estimation" textAlignment="CENTER" wrapText="true" />
          </children>
       </HBox>
       <TableView fx:id="historyTable" prefHeight="182.0" prefWidth="519.0" GridPane.columnIndex="1">

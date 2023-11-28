@@ -55,8 +55,8 @@
             </Label>
             <Label prefHeight="17.0" prefWidth="366.0" text="1. When you start a new activity, press the &quot;Start an Activity&quot; button." />
             <Button alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="158.0" text="Start an Activity" />
-            <Label text="2. Select the project, life cycle step, effort category, and deliverable from the following lists:" />
-            <GridPane vgap="20.0">
+            <Label text="2. Select the task name, life cycle step, effort category, and deliverable from the following lists:" />
+            <GridPane hgap="10.0" vgap="20.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -68,8 +68,12 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label text="Project:" />
-                        <ComboBox prefWidth="150.0" />
+                        <Label text="Task Name" />
+                        <TextField fx:id="taskNameTextField" prefHeight="24.0" prefWidth="90.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </TextField>
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
@@ -87,7 +91,7 @@
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
                         <Label text="Description:" />
-                        <TextField />
+                        <TextField fx:id="descriptionTextField" />
                      </children>
                   </VBox>
                </children>
