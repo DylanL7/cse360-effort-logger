@@ -54,7 +54,7 @@
                </font>
             </Label>
             <Label prefHeight="17.0" prefWidth="366.0" text="1. When you start a new activity, press the &quot;Start an Activity&quot; button." />
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="158.0" text="Start an Activity" />
+            <Button fx:id="startButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleStartButton" prefHeight="26.0" prefWidth="158.0" text="Start an Activity" />
             <Label text="2. Select the task name, life cycle step, effort category, and deliverable from the following lists:" />
             <GridPane hgap="10.0" vgap="20.0">
               <columnConstraints>
@@ -97,7 +97,7 @@
                </children>
             </GridPane>
             <Label text="3. Press the &quot;Stop this Activity&quot; to generate an effort log entry using the attributes above." />
-            <Button mnemonicParsing="false" text="Stop this Activity" />
+            <Button mnemonicParsing="false" onAction="#handleStopButton" text="Stop this Activity" />
             <Label text="4. Unless you are done for the day, it is best to perform steps 1 and 2 above before resuming work." />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                <children>

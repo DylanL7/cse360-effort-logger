@@ -18,6 +18,7 @@ import EffortLogger.DateTimePicker;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -34,6 +35,7 @@ import javafx.scene.layout.Pane;
 
 public class PlanningPoker extends GridPane {
 	
+	private TabPane root;
 	private Stage mainStage;
 	@FXML
 	public TableView historyTable;
@@ -53,6 +55,7 @@ public class PlanningPoker extends GridPane {
 	@FXML
 	private TextArea descriptionTextArea;
 	
+	
 	@FXML
 	 ToggleGroup choices;
 	
@@ -62,12 +65,19 @@ public class PlanningPoker extends GridPane {
         if (rb != null) { 
             int s = Integer.parseInt(rb.getText()); //get selected value 1-6
             System.out.println(s);
+            
+            root.getSelectionModel().select(1);
+            
+            CSVInterface.WriteEstimatedPoints(s);
         }
-        
-        
     }
-	public PlanningPoker(Stage stage, String taskName, String description) throws Exception {
-		this.mainStage = stage;
+	public PlanningPoker(TabPane root, Stage mainStage, String taskName, String description) throws Exception {
+		this.root = root;
+		this.mainStage = mainStage;
+		
+		this.setMinWidth(1000);
+		this.setMinHeight(500);
+		
 		// Setup FXML
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Planning Poker UI.fxml"));
 		loader.setController(this);
@@ -77,8 +87,8 @@ public class PlanningPoker extends GridPane {
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		taskNameColumn.setCellValueFactory(log_entry -> new SimpleObjectProperty<>(log_entry.getValue().task_name));
 		userNameColumn.setCellValueFactory(log_entry -> new SimpleObjectProperty<>(log_entry.getValue().user_name));
-		estimatedStoryPointsColumn.setCellValueFactory(log_entry -> new SimpleObjectProperty<>(log_entry.getValue().actual_story_points_hours));
-		actualStoryPointsColumn.setCellValueFactory(log_entry -> new SimpleObjectProperty<>(log_entry.getValue().estimated_story_points));
+		estimatedStoryPointsColumn.setCellValueFactory(log_entry -> new SimpleObjectProperty<>(log_entry.getValue().estimated_story_points));
+		actualStoryPointsColumn.setCellValueFactory(log_entry -> new SimpleObjectProperty<>(log_entry.getValue().actual_story_points_hours));
 		ArrayList<LogEntry> entries = CSVInterface.ReadLoggedData();
 		for (LogEntry entry : entries) {
 			historyTable.getItems().add(entry);

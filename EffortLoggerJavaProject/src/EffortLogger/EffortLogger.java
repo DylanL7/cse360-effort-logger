@@ -40,13 +40,55 @@ public class EffortLogger extends Application {
     @FXML
     private TextField descriptionTextField;
     
+    
+    @FXML
+    private Button startButton;
+    
+    private long startTime;
+    private Boolean planned;
+	
+    
     @FXML public void handlePlanningPokerButton(ActionEvent event) throws Exception {
-    	PlanningPoker pp = new PlanningPoker(mainStage, taskNameTextField.getText(), descriptionTextField.getText());
+    	String taskname = taskNameTextField.getText();
+    	String description = descriptionTextField.getText();
+    	if (taskname.isEmpty() || description.isEmpty() || planned) {
+    		return;
+    	}
+    	planned = true;
+    	taskNameTextField.setEditable(false);
+    	descriptionTextField.setEditable(false);
+    	CSVInterface.WriteInitialTaskName(taskname, username, description);
+    	PlanningPoker pp = new PlanningPoker(root, mainStage, taskname, description);
 //    	mainStage.setScene(new Scene(pp));
 //    	mainStage.show();
     	Tab tab = new Tab();
         tab.setContent(pp);
-        root.getSelectionModel().select(-1);
+        root.getTabs().add(tab);
+        root.getSelectionModel().select(tab);
+        mainStage.sizeToScene();
+        
+        
+    }
+    
+    @FXML public void handleStartButton(ActionEvent event) throws Exception {
+    	startTime = System.currentTimeMillis();
+    	startButton.setDisable(true);
+    }
+    
+    @FXML public void handleStopButton(ActionEvent event) throws Exception {
+		if (startTime == 0) {
+			return;
+		}
+		taskNameTextField.clear();
+		taskNameTextField.setEditable(true);
+		descriptionTextField.clear();
+    	descriptionTextField.setEditable(true);
+    	startButton.setDisable(false);
+    	long endtime = System.currentTimeMillis() - startTime;
+    	endtime = Math.round(endtime / (60*1000));
+    	CSVInterface.WriteActualPoints(Math.toIntExact(endtime));
+    	startTime = 0;
+    	planned = false;
     }
     
     //Main launches the JavaFX application
@@ -71,7 +113,8 @@ public class EffortLogger extends Application {
 
     //JavaFX logic contained within start
     public void start(Stage primaryStage) throws IOException {
-
+    	startTime = 0;
+    	planned = false;
      //Creates the mainline console scene launched on login
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("Effort Log Console.fxml"));
     	loader.setController(this);
@@ -144,8 +187,13 @@ public class EffortLogger extends Application {
 		tab1.setContent(console);
 		root.getTabs().addAll(tab0, tab1);
 		
+		root.setMinWidth(1000);
+		root.setMinHeight(500);
+		mainStage.setMinWidth(1000);
+		mainStage.setMinHeight(500);
+		
         //Display the login screen
-        primaryStage.setScene(new Scene(root, 700, 550));
+        primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.show();
     }
 }
